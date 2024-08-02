@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <% items.forEach(item=> { %>
+      <div class="palette" style="background: <%=item%>">
+        <h1 class="palette-color">
+          <%=item%>
+        </h1>
+      </div>
+      <% }); %>
+        <form action="/generate" method="post">
+          <input type="text" name="search" placeholder="Enter any context to generate color...">
+          <button type="submit">Submit</button>
+        </form>
+  </div>
+</body>
+
+</html>

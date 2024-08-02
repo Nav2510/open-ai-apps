@@ -1,0 +1,24 @@
+{
+  "name": "open-ai-apps",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start:palette": "cd color-palette-generator && nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nav2510/open-ai-apps.git"
+  },
+  "author": "Navdeep Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nav2510/open-ai-apps/issues"
+  },
+  "homepage": "https://github.com/Nav2510/open-ai-apps#readme",
+  "workspaces": [
+    "color-palette-generator" 
+  ],
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

@@ -1,0 +1,53 @@
+# Color Palette Generator
+
+The **Color Palette Generator** is a simple web application that generates beautiful color palettes. It uses artificial intelligence to suggest harmonious color combinations based on user input.
+
+## Features
+
+- **Palette Generation**: Enter a context or any text in input, and the AI will create a palette of complementary colors.
+- **Export Options**: Copy the hex code provided in each of the color in palette generated.
+
+## Installation
+
+1. This project is a sub-project of project suite, clone parent repository:
+   ```bash
+   git clone https://github.com/Nav2510/open-ai-apps.git
+   cd open-ai-apps
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file in the project root with the following content:
+   ```env
+   PORT=3000
+   API_KEY=your_openai_api_key_here
+   ```
+
+4. Start the color-palette-generator server:
+   ```bash
+   npm start:palette
+   ```
+
+## Usage
+
+1. Open your browser and navigate to `http://localhost:3000`.
+2. Enter any text or context (e.g., "blue color shades", "google logo colors").
+3. Click "Submit"
+4. Explore the suggested color.
+6. Get your favorite palette color.
+
+## Contributing
+
+Contributions are welcome! If you find a bug or have an idea for improvement, feel free to open an issue or submit a pull request.
+
+## Credits
+
+- AI integration powered by OpenAI.
+- Built with Express.js, EJS, and love.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.
