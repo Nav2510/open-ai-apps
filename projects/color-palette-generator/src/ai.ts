@@ -1,15 +1,18 @@
+import { NextFunction, Request, Response } from "express";
 import { OpenAI } from "openai";
+import { APIPromise } from "openai/core";
+import { ChatCompletion } from "openai/resources/chat";
 
-let client;
-export const initOpenAi = (apiKey) => {
+let client: OpenAI;
+export const initOpenAi = (apiKey: string) => {
   client = new OpenAI({
     apiKey,
   });
 };
 
-const generateColor = (search) => {
+const generateColor = (search: string): APIPromise<ChatCompletion> => {
   const completions = client.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: 'gpt-4o-mini',
     max_tokens: 200,
     messages: [
       {
@@ -44,16 +47,17 @@ const generateColor = (search) => {
   return completions;
 };
 
-export const renderPalette = (req, res, next) => {
+export const renderPalette = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const search = req.body?.search || "a beautiful rose petal";
-    generateColor(search).then((response) => {
+    const search: string = req.body?.search || "a beautiful rose petal";
+    generateColor(search).then((response: ChatCompletion) => {
       console.log("---------------------------");
       console.log(response.choices[0].message.content);
       console.log("---------------------------");
       let generatedColors;
       try {
-        generatedColors = JSON.parse(response.choices[0].message.content.trim());
+        const content = (response.choices[0].message.content || '').trim()
+        generatedColors = JSON.parse(content);
       } catch (error) {
         console.log("Invalid JSON response:", error);
         res.redirect("/");

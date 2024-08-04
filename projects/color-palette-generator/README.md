@@ -20,20 +20,31 @@ The **Color Palette Generator** is a simple web application that generates beaut
    npm install
    ```
 
-3. Create a `.env` file in the project root with the following content:
-   ```env
-   PORT=3000
-   API_KEY=your_openai_api_key_here
+3. Create a `.env` file in the project root.
+
+4. Start the dev color-palette-generator server:
+   ```bash
+   npm run dev:palette
    ```
 
-4. Start the color-palette-generator server:
-   ```bash
-   npm start:palette
-   ```
+### Environment Variables
+
+1. Copy the `.env.example` file to a new file named `.env`:
+    ```sh
+    cp .env.example .env
+    ```
+
+2. Fill in the required environment variables in the `.env` file:
+    ```dotenv
+    PORT=3001
+    API_KEY=your-api-key-here
+    ```
+
+3. Save the `.env` file.
 
 ## Usage
 
-1. Open your browser and navigate to `http://localhost:3000`.
+1. Open your browser and navigate to `http://localhost:3001`.
 2. Enter any text or context (e.g., "blue color shades", "google logo colors").
 3. Click "Submit"
 4. Explore the suggested color.

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:palette": "cd color-palette-generator && nodemon app.js"
+    "dev:palette": "cd projects/color-palette-generator && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,13 @@
   },
   "homepage": "https://github.com/Nav2510/open-ai-apps#readme",
   "workspaces": [
-    "color-palette-generator" 
+    "projects/color-palette-generator"
   ],
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.1.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
