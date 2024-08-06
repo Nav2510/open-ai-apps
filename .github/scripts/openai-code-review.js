@@ -1,5 +1,5 @@
 import { Octokit } from "@octokit/rest";
-import { createReview } from "./openai-helper.js";
+import { generateColor } from "./openai-helper.js";
 import fs from 'fs';
 import path from 'path';
 import { context } from '@actions/github';
@@ -28,14 +28,15 @@ octokit.pulls.listFiles({
     console.log('filePath', filePath);
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, 'utf8');
-      createReview(fileContent).then(review => {
+      generateColor(fileContent).then(review => {
         // Post a review comment to the pull request
-        octokit.issues.createComment({
-          owner,
-          repo,
-          issue_number: pull_number,
-          body: `### OpenAI Code Review for ${file.filename}\n${review}`
-        });
+        console.log(review.choices[0].message.content);
+        // octokit.issues.createComment({
+        //   owner,
+        //   repo,
+        //   issue_number: pull_number,
+        //   body: `### OpenAI Code Review for ${file.filename}\n${review}`
+        // });
       }).catch(err => {
         console.error('Error generating review:', err);
       });
