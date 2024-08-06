@@ -6,19 +6,21 @@ let client = new OpenAI({
     openaiApiKey,
   });
 
-export function generateColor(search) {
+export function createReview(fileContent) {
   const completions = client.chat.completions.create({
     model: 'gpt-4o-mini',
-    max_tokens: 100,
+    max_tokens: 300,
+    // Review the following code for issues, improvements, and best practices:\n\n${fileContent}
     messages: [
       {
         role: "system",
-        content: `You are a color palette generating assistant that responds to text prompt for color palettes.
-        JSON array length should be 2.`,
+        content: `You are a code reviewer assistant. You will provide the issues, improvements and best practices to the code provided to you.
+        You will also provide the links for any best practices that can be followed.
+        `,
       },
       {
         role: "user",
-        content: `Convert the following verbal description of a color palette into list of color: ${search}`,
+        content: `Review the given code: ${fileContent}`,
       },
     ],
   });

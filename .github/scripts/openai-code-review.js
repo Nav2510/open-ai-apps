@@ -4,7 +4,7 @@ import path from 'path';
 import { context } from '@actions/github';
 import  {minimatch} from  'minimatch';
 
-import { generateColor } from "./openai-helper.js";
+import { createReview } from "./openai-helper.js";
 
 const SRC_FOLDER_PATTERN = '**/src/**/*.js';
 
@@ -24,15 +24,13 @@ octokit.pulls.listFiles({
 }).then(files => {
   files.data.forEach(file => {
     const filePath = path.resolve(file.filename);
-    console.log(filePath);
-    console.log('------------------------------------------------');
     if (!isIncludedFilePath(filePath, SRC_FOLDER_PATTERN)) {
         return;
     }
     console.log(filePath);
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, 'utf8');
-      generateColor(fileContent).then(review => {
+      createReview(fileContent).then(review => {
         // Post a review comment to the pull request
         console.log(review.choices[0].message.content);
         // octokit.issues.createComment({
