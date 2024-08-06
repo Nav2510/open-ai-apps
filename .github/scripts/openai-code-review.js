@@ -8,8 +8,10 @@ import { context } from '@actions/github';
 const token = process.env.GITHUB_TOKEN;
 const octokit = new Octokit({ auth: token });
 
-console.log('github_token', token);
-console.log('openai_key', process.env.OPENAI_API_KEY);
+console.log('-----------------------------------------------------------');
+console.log('github_token', JSON.stringify(process.env.GITHUB_TOKEN));
+console.log('openai_key', JSON.stringify(process.env.OPENAI_API_KEY));
+console.log('-----------------------------------------------------------');
 
 // Get the context of the pull request
 const { owner, repo } = context.repo;
