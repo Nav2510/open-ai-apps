@@ -23,9 +23,9 @@ octokit.pulls.listFiles({
   pull_number
 }).then(files => {
   files.data.forEach(file => {
+    const filePath = path.resolve(file.filename);
     console.log(filePath);
     console.log('------------------------------------------------');
-    const filePath = path.resolve(file.filename);
     if (!isIncludedFilePath(filePath, patterns)) {
         return;
     }
