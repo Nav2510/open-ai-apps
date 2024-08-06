@@ -8,21 +8,18 @@ import { context } from '@actions/github';
 const token = process.env.GITHUB_TOKEN;
 const octokit = new Octokit({ auth: token });
 
-console.log('-----------------------------------------------------------');
-console.log('github_token', JSON.stringify(process.env.GITHUB_TOKEN));
-console.log('openai_key', JSON.stringify(process.env.OPENAI_API_KEY));
-console.log('-----------------------------------------------------------');
-
 // Get the context of the pull request
 const { owner, repo } = context.repo;
 const pull_number = context.payload.pull_request.number;
 
+console.log(owner, repo, pull_number);
 // Fetch the list of files changed in the pull request
 octokit.pulls.listFiles({
   owner,
   repo,
   pull_number
 }).then(files => {
+    console.log(files);
   files.data.forEach(file => {
     const filePath = path.resolve(file.filename);
     console.log('filePath', filePath);

@@ -9,30 +9,12 @@ let client = new OpenAI({
 export function generateColor(search) {
   const completions = client.chat.completions.create({
     model: 'gpt-4o-mini',
-    max_tokens: 200,
+    max_tokens: 100,
     messages: [
       {
         role: "system",
         content: `You are a color palette generating assistant that responds to text prompt for color palettes.
-        JSON array length should be between 2 and 8.`,
-      },
-      {
-        role: "user",
-        content:
-          "Convert the following verbal description of a color palette into list of color: desert sunset",
-      },
-      {
-        role: "assistant",
-        content: '["#F2C447", "#F76218", "#FF1D68", "#B10065"]',
-      },
-      {
-        role: "user",
-        content:
-          "Convert the following verbal description of a color palette into list of color: beautiful rose petals",
-      },
-      {
-        role: "assistant",
-        content: '["#C21E56", "#DC143C", "#9B111E", "#FF2400", "#D2042D"]',
+        JSON array length should be 2.`,
       },
       {
         role: "user",
