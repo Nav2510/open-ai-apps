@@ -1,14 +1,15 @@
-const { Octokit } = require("@octokit/rest");
-const { createReview } = require("./openai-helper");
-const fs = require('fs');
-const path = require('path');
+import { Octokit } from "@octokit/rest";
+import { createReview } from "./openai-helper.js";
+import fs from 'fs';
+import path from 'path';
+import { context } from '@actions/github';
+import { fileURLToPath } from 'url';
 
 // GitHub token is automatically provided by GitHub Actions
 const token = process.env.GITHUB_TOKEN;
 const octokit = new Octokit({ auth: token });
 
 // Get the context of the pull request
-const context = require('@actions/github').context;
 const { owner, repo } = context.repo;
 const pull_number = context.payload.pull_request.number;
 

@@ -1,8 +1,8 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const openaiApiKey = process.env.OPENAI_API_KEY;
 
-async function createReview(fileContent) {
+export async function createReview(fileContent) {
   const response = await axios.post(
     'https://api.openai.com/v1/engines/davinci-codex/completions',
     {
@@ -18,5 +18,3 @@ async function createReview(fileContent) {
   );
   return response.data.choices[0].text.trim();
 }
-
-module.exports = { createReview };

@@ -2,6 +2,7 @@
   "name": "open-ai-apps",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
     "dev:palette": "cd projects/color-palette-generator && npm run dev"
   },
@@ -26,6 +27,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@actions/github": "^6.0.0",
     "@octokit/rest": "^21.0.1",
     "axios": "^1.7.3"
   }
