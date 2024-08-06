@@ -30,15 +30,24 @@ octokit.pulls.listFiles({
     console.log(filePath);
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, 'utf8');
-      createReview(fileContent).then(review => {
+      createReview(fileContent).then(async (review) => {
         // Post a review comment to the pull request
         // console.log(review.choices[0].message.content);
-        octokit.issues.createComment({
-          owner,
-          repo,
-          issue_number: pull_number,
-          body: `### OpenAI Code Review for ${file.filename}\n${review}`
-        });
+        await octokit.request(`POST /repos/${owner}/${repo}/issues/${pull_number}/comments`, {
+            owner: 'OWNER',
+            repo: 'REPO',
+            issue_number: 'ISSUE_NUMBER',
+            body: 'Me too',
+            headers: {
+              'X-GitHub-Api-Version': '2022-11-28'
+            }
+          })
+        // octokit.issues.createComment({
+        //   owner,
+        //   repo,
+        //   issue_number: pull_number,
+        //   body: `### OpenAI Code Review for ${file.filename}\n${review}`
+        // });
       }).catch(err => {
         console.error('Error generating review:', err);
       });
