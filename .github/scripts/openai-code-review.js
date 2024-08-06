@@ -6,7 +6,7 @@ import  {minimatch} from  'minimatch';
 
 import { generateColor } from "./openai-helper.js";
 
-const patterns = 'src/**/*.js';
+const SRC_FOLDER_PATTERN = '**/src/**/*.js';
 
 // GitHub token is automatically provided by GitHub Actions
 const token = process.env.GITHUB_TOKEN;
@@ -26,7 +26,7 @@ octokit.pulls.listFiles({
     const filePath = path.resolve(file.filename);
     console.log(filePath);
     console.log('------------------------------------------------');
-    if (!isIncludedFilePath(filePath, patterns)) {
+    if (!isIncludedFilePath(filePath, SRC_FOLDER_PATTERN)) {
         return;
     }
     console.log(filePath);
