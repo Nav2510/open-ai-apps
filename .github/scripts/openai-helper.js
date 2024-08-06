@@ -9,7 +9,7 @@ let client = new OpenAI({
 export function createReview(fileContent) {
   const completions = client.chat.completions.create({
     model: 'gpt-4o-mini',
-    max_tokens: 300,
+    max_tokens: 1000,
     // Review the following code for issues, improvements, and best practices:\n\n${fileContent}
     messages: [
       {

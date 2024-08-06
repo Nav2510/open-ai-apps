@@ -32,13 +32,13 @@ octokit.pulls.listFiles({
       const fileContent = fs.readFileSync(filePath, 'utf8');
       createReview(fileContent).then(review => {
         // Post a review comment to the pull request
-        console.log(review.choices[0].message.content);
-        // octokit.issues.createComment({
-        //   owner,
-        //   repo,
-        //   issue_number: pull_number,
-        //   body: `### OpenAI Code Review for ${file.filename}\n${review}`
-        // });
+        // console.log(review.choices[0].message.content);
+        octokit.issues.createComment({
+          owner,
+          repo,
+          issue_number: pull_number,
+          body: `### OpenAI Code Review for ${file.filename}\n${review}`
+        });
       }).catch(err => {
         console.error('Error generating review:', err);
       });
