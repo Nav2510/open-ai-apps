@@ -22,14 +22,15 @@ octokit.pulls.listFiles({
   repo,
   pull_number
 }).then(files => {
-    console.log(files);
   files.data.forEach(file => {
+    console.log(filePath);
+    console.log('------------------------------------------------');
     const filePath = path.resolve(file.filename);
     if (!isIncludedFilePath(filePath, patterns)) {
         return;
     }
+    console.log(filePath);
     if (fs.existsSync(filePath)) {
-        console.log(filePath);
       const fileContent = fs.readFileSync(filePath, 'utf8');
       generateColor(fileContent).then(review => {
         // Post a review comment to the pull request
