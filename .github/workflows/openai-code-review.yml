@@ -3,7 +3,7 @@ name: OpenAI Code Review
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   code-review:
