@@ -32,12 +32,12 @@ octokit.pulls.listFiles({
       const fileContent = fs.readFileSync(filePath, 'utf8');
       createReview(fileContent).then(async (review) => {
         // Post a review comment to the pull request
-        // console.log(review.choices[0].message.content);
+        console.log(review.choices[0].message.content);
         await octokit.request(`POST /repos/${owner}/${repo}/issues/${pull_number}/comments`, {
-            owner: 'OWNER',
-            repo: 'REPO',
-            issue_number: 'ISSUE_NUMBER',
-            body: 'Me too',
+            owner: owner,
+            repo: repo,
+            issue_number: pull_number,
+            body: review.choices[0].message.content,
             headers: {
               'X-GitHub-Api-Version': '2022-11-28'
             }
