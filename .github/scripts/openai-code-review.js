@@ -46,7 +46,7 @@ octokit.pulls.listFiles({
           owner,
           repo,
           issue_number: pull_number,
-          body: `### OpenAI Code Review for ${file.filename}\n${review}`
+          body: `### OpenAI Code Review for ${file.filename}\n${review.choices[0].message.content}`
         });
       }).catch(err => {
         console.error('Error generating review:', err);
