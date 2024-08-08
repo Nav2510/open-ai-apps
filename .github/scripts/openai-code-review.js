@@ -36,8 +36,9 @@ octokit.pulls
         console.log('LINE_COMMENT_ENABLED', LINE_COMMENTS_ENABLED);
         if (LINE_COMMENTS_ENABLED) {
           createLineComments(file, content)
+        } else {
+          createPRComment(file, content);
         }
-        createPRComment(content);
       }
     });
   })
@@ -65,7 +66,7 @@ function createLineComments(file, fileContent) {
   })
 }
  
-function createPRComment(fileContent) {
+function createPRComment(file, fileContent) {
   createFileReview(fileContent)
     .then(reviewRes => {
       // Post a review comment to the pull request
