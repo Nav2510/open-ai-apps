@@ -1,0 +1,78 @@
+<div class="card container grid-container">
+    <div class="header">
+        <div class="wrapper">
+            <div class="title-wrapper">
+                <span class="title">{{title}}</span>
+                <span class="tag count-tag" *ngIf="data"><app-tag [bgColor]="countTagColor.background_color"
+                        [textColor]="countTagColor.text_color" content="{{data.length}} users"></app-tag></span>
+            </div>
+        </div>
+        <span class="material-symbols-outlined action action-icon">
+            more_vert
+        </span>
+    </div>
+    <table class="grid-table">
+        <thead class="grid-table-head">
+            <tr class="table-row">
+                <th>
+                    <input [(ngModel)]="checkAll" class="checkbox" type="checkbox" name="" id="">
+                </th>
+                <th *ngFor="let column of columns">{{column.column_name}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="grid-table-body">
+            <tr class="table-row" *ngFor="let dataItem of data">
+                <td>
+                    <input [checked]="checkAll" class="checkbox" type="checkbox">
+                </td>
+                <td>
+                    <app-name-avatar [firstName]="dataItem.name.first_name" [lastName]="dataItem.name.last_name"
+                        [username]="dataItem.name.handle"></app-name-avatar>
+                </td>
+                <td><app-tag [showIcon]="true" [bgColor]="getTagColor(dataItem.status).background_color"
+                        [content]="getTagColor(dataItem.status).value"
+                        [textColor]="getTagColor(dataItem.status).text_color"></app-tag></td>
+                <td>{{dataItem.role}}</td>
+                <td><app-progress-bar [percentValue]="dataItem.license_used"></app-progress-bar></td>
+                <td>
+                    <app-tag *ngFor="let team of dataItem.teams" [bgColor]="team.background_color"
+                        [textColor]="team.text_color" [content]="team.value"></app-tag>
+                </td>
+                <td class="right-align">
+                    <span (click)="onDelete(dataItem)" class="material-symbols-outlined action action-icon">
+                        delete
+                    </span>
+                    <span (click)="onEdit(dataItem)" class="material-symbols-outlined action action-icon">
+                        edit
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="grid-table-footer">
+            <tr class="table-row">
+                <td colspan="7">
+                    <div class="pagination-wrapper">
+                        <button class="action action-btn">
+                            <span class="material-symbols-outlined">
+                                arrow_back
+                            </span>
+                            Previous</button>
+                        <div class="number-btn-wrapper">
+                            <span class="action action-icon"
+                                *ngFor="let i of getArray(data.length); index as pageNumber">
+                                {{pageNumber + 1}}
+                            </span>
+                        </div>
+                        <button class="action action-btn">
+                            Next
+                            <span class="material-symbols-outlined">
+                                arrow_forward
+                            </span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
