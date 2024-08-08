@@ -50,12 +50,15 @@ function createLineComments(file, fileContent) {
   createLineSpecificReview(fileContent).then((reviewRes) => {
     try {
       const completionText = reviewRes.choices[0].message.content.trim();
+      console.log("completionText", completionText);
       const jsonResponse =JSON.parse(completionText);
       let reviewList = [];
       const keys = Object.keys(jsonResponse);
+      console.log('keys', keys);
       keys.forEach((key) => {
         changes = [...changes, ...jsonResponse[key]];
       });
+      console.log('changes', changes);
       reviewList.forEach((review) => {
         octokit.pulls.createReviewComment({
           owner: owner,
