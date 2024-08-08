@@ -48,21 +48,30 @@ octokit.pulls
 
 function createLineComments(file, fileContent) {
   createLineSpecificReview(fileContent).then((reviewRes) => {
-    const reviewList = reviewRes.choices[0].message.content;
-    console.log('reviewList', reviewList);
-    reviewList.forEach((review) => {
-      octokit.pulls.createReviewComment({
-        owner: owner,
-        repo: repo,
-        pull_number: pull_number,
-        path: file.filename,
-        line: review.line,
-        body: `
-        ${review.suggested_change}\n
-        Explantion: ${review.explantions}
-        `
+    try {
+      const completionText = reviewRes.choices[0].message.content.trim();
+      const jsonResponse =JSON.parse(completionText);
+      let reviewList = [];
+      const keys = Object.keys(jsonResponse);
+      keys.forEach((key) => {
+        changes = [...changes, ...jsonResponse[key]];
+      });
+      reviewList.forEach((review) => {
+        octokit.pulls.createReviewComment({
+          owner: owner,
+          repo: repo,
+          pull_number: pull_number,
+          path: file.filename,
+          line: review.line,
+          body: `
+          ${review.suggested_change}\n
+          Explantion: ${review.explantions}
+          `
+        })
       })
-    })
+    } catch (error) {
+      throw new Error("Failed to parse JSON response");
+    }
   })
 }
  
