@@ -1,0 +1,81 @@
+@import "../../../../assets/styles/variables.scss";
+
+.grid-container {
+    .header {
+        .wrapper {
+            padding-top: 20px;
+
+            .count-tag {
+                margin-left: 10px;
+            }
+        }
+
+    }
+
+    .grid-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        .grid-table-head {
+            .table-row {
+                th {
+                    height: 60px;
+                    font-size: 17px;
+                    color: $black-500;
+                    font-weight: $font-weight-bold;
+                    background-color: $black-800;
+                    text-align: left;
+                    padding-left: 10px;
+
+                    .checkbox {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+
+        .grid-table-body,
+        .grid-table-footer {
+            .table-row {
+                td {
+                    border-bottom: 1px solid $black-700;
+                    height: 100px;
+                    color: $black-400;
+                    font-size: 20px;
+
+                    .checkbox {
+                        margin-left: 20px;
+                    }
+
+                    transition: background-color 0.3s ease-in-out;
+                }
+            }
+        }
+
+        .grid-table-body {
+            .table-row {
+                &:hover {
+                    td {
+                        cursor: pointer;
+                        background-color: $black-700;
+                    }
+                }
+            }
+        }
+
+        .grid-table-footer {
+            .pagination-wrapper {
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+.right-align {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-right: 10px;
+}
