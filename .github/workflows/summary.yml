@@ -2,7 +2,7 @@ name: Add Summary to PR
 
 on:
   pull_request:
-    types: [opened, edited]
+    types: [opened, synchronize, reopened]
 
 jobs:
   add-summary:
