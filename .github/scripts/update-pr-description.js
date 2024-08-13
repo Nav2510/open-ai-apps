@@ -23,7 +23,7 @@ export async function updatePRDescription(file, filePath, content) {
     pull_number: prNumber,
   });
 
-  const path = `### Path: [${removeFirstNDirectories(filePath, 4)}](${file.filename})`
+  const path = `### Path: [${removeFirstNDirectories(filePath, 5)}](${file.blob_url})`
   const updatedBody = `${path}\n${summary}\n\n${pr.body}`;
 
   // Update the PR description
