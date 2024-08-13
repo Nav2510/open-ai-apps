@@ -6,7 +6,7 @@ let client = new OpenAI({
   apiKey: openaiApiKey,
 });
 
-export function createSummary() {
+export function createSummary(fileContent) {
   const completions = client.chat.completions.create({
     model: "gpt-4o-mini",
     max_tokens: 1000,
@@ -18,7 +18,7 @@ export function createSummary() {
       },
       {
         role: "user",
-        content: `Review the given code: ${sort}`,
+        content: `Review the given code: ${fileContent}`,
       },
     ],
   });

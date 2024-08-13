@@ -5,6 +5,7 @@ import { context } from "@actions/github";
 import { minimatch } from "minimatch";
 
 import { createLineSpecificReview, createFileReview } from "./openai-helper.js";
+import { updatePRDescription } from "./update-pr-description.js";
 
 const LINE_COMMENTS_ENABLED = true;
 
@@ -41,6 +42,7 @@ octokit.pulls
         } else {
           createPRComment(file, content);
         }
+        updatePRDescription(filePath, content);
       }
     });
   })

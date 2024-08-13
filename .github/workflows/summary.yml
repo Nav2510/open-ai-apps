@@ -17,5 +17,7 @@ jobs:
 
     - name: Add Summary to PR Description
       env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SRC_FOLDER_PATTERN: "**/src/**/*.js, **/src/**/*.ts, **/src/**/*.html, **/src/**/*.scss"
       run: node .github/scripts/update-pr-description.js

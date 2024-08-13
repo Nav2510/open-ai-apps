@@ -1,17 +1,20 @@
 import { Octokit } from "@octokit/rest";
 import { context } from "@actions/github";
+import { createSummary } from "./openai-helper";
 
 // Function to update PR description
-async function updatePRDescription() {
+export async function updatePRDescription(filePath, content) {
   // Get the context of the pull request
   const token = process.env.GITHUB_TOKEN;
   const { owner, repo } = context.repo;
   const prNumber = context.payload.pull_request.number;
-  const summary = "This is summary updated";
 
   const octokit = new Octokit({
     auth: token,
   });
+
+  const response  = await createSummary(content);
+  const summary = response.choices[0].message.content;
 
   // Fetch the current PR description
   const { data: pr } = await octokit.pulls.get({
@@ -20,7 +23,7 @@ async function updatePRDescription() {
     pull_number: prNumber,
   });
 
-  const updatedBody = `${summary}\n\n${pr.body}`;
+  const updatedBody = `${filePath}\n${summary}\n\n${pr.body}`;
 
   // Update the PR description
   await octokit.pulls.update({
@@ -32,8 +35,3 @@ async function updatePRDescription() {
 
   console.log(`Updated PR #${prNumber} description with summary.`);
 }
-
-updatePRDescription().catch((error) => {
-  console.error(`Failed to update PR description: ${error.message}`);
-  process.exit(1);
-});
