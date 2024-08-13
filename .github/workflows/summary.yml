@@ -15,4 +15,4 @@ jobs:
     - name: Add Summary to PR Description
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: node update-pr-description.js
+      run: node .github/scripts/update-pr-description.js
