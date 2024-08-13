@@ -25,20 +25,21 @@ octokit.pulls
     repo,
     pull_number,
   })
-  .then(async(files) => {
+  .then(async (files) => {
     const commit_id = await getLatestCommitSHA();
     files.data.forEach((file) => {
+      console.log(file);
       const filePath = path.resolve(file.filename);
       if (!isIncludedFilePath(filePath, includedFiles)) {
         return;
       }
-      console.log('commit_id', commit_id);
+      console.log("commit_id", commit_id);
       console.log(filePath);
       if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, "utf8");
-        console.log('LINE_COMMENT_ENABLED', LINE_COMMENTS_ENABLED);
+        console.log("LINE_COMMENT_ENABLED", LINE_COMMENTS_ENABLED);
         if (LINE_COMMENTS_ENABLED) {
-          createLineComments(file, content, commit_id)
+          createLineComments(file, content, commit_id);
         } else {
           createPRComment(file, content);
         }
@@ -50,24 +51,24 @@ octokit.pulls
     console.error("Error fetching pull request files:", err);
   });
 
-  async function getLatestCommitSHA() {
-    const { data: commits } = await octokit.pulls.listCommits({
-      owner,
-      repo,
-      pull_number,
-    });
-    return commits[commits.length - 1].sha;
-  }
+async function getLatestCommitSHA() {
+  const { data: commits } = await octokit.pulls.listCommits({
+    owner,
+    repo,
+    pull_number,
+  });
+  return commits[commits.length - 1].sha;
+}
 
 function createLineComments(file, fileContent, commit_id) {
   createLineSpecificReview(fileContent).then((reviewRes) => {
     try {
       const completionText = reviewRes.choices[0].message.content.trim();
       console.log("completionText", completionText);
-      const jsonResponse =JSON.parse(completionText);
+      const jsonResponse = JSON.parse(completionText);
       let reviewList = [];
       const keys = Object.keys(jsonResponse);
-      console.log('keys', keys);
+      console.log("keys", keys);
       keys.forEach((key) => {
         reviewList = [...reviewList, ...jsonResponse[key]];
       });
@@ -82,18 +83,18 @@ function createLineComments(file, fileContent, commit_id) {
           body: `
           ${review.suggested_change}\n
           Explantion: ${review.explantions}
-          `
-        })
-      })
+          `,
+        });
+      });
     } catch (error) {
       throw new Error("Failed to parse JSON response");
     }
-  })
+  });
 }
- 
+
 function createPRComment(file, fileContent) {
   createFileReview(fileContent)
-    .then(reviewRes => {
+    .then((reviewRes) => {
       // Post a review comment to the pull request
       octokit.issues.createComment({
         owner,

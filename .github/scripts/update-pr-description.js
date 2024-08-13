@@ -23,7 +23,7 @@ export async function updatePRDescription(file, filePath, content) {
     pull_number: prNumber,
   });
 
-  const path = `### Path: [${filePath}](${file.filename})`
+  const path = `### Path: [${removeFirstNDirectories(filePath, 4)}](${file.filename})`
   const updatedBody = `${path}\n${summary}\n\n${pr.body}`;
 
   // Update the PR description
@@ -35,4 +35,10 @@ export async function updatePRDescription(file, filePath, content) {
   });
 
   console.log(`Updated PR #${prNumber} description with summary.`);
+}
+
+function removeFirstNDirectories(filePath, n) {
+  const parts = filePath.split('/');  // Split the path into parts
+  const newPath = parts.slice(n).join('/');  // Remove the first n parts and rejoin the remaining
+  return newPath;
 }
