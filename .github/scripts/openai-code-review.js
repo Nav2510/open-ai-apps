@@ -42,7 +42,7 @@ octokit.pulls
         } else {
           createPRComment(file, content);
         }
-        updatePRDescription(filePath, content);
+        updatePRDescription(file, filePath, content);
       }
     });
   })

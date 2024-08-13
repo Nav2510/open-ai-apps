@@ -3,7 +3,7 @@ import { context } from "@actions/github";
 import { createSummary } from "./openai-helper.js";
 
 // Function to update PR description
-export async function updatePRDescription(filePath, content) {
+export async function updatePRDescription(file, filePath, content) {
   // Get the context of the pull request
   const token = process.env.GITHUB_TOKEN;
   const { owner, repo } = context.repo;
@@ -23,7 +23,8 @@ export async function updatePRDescription(filePath, content) {
     pull_number: prNumber,
   });
 
-  const updatedBody = `${filePath}\n${summary}\n\n${pr.body}`;
+  const path = `### Path: [${filePath}](${file.filename})`
+  const updatedBody = `${path}\n${summary}\n\n${pr.body}`;
 
   // Update the PR description
   await octokit.pulls.update({
