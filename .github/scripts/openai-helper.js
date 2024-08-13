@@ -3,12 +3,31 @@ import { OpenAI } from "openai";
 const openaiApiKey = process.env.OPENAI_API_KEY;
 
 let client = new OpenAI({
-    openaiApiKey,
+  apiKey: openaiApiKey,
+});
+
+export function createSummary() {
+  const completions = client.chat.completions.create({
+    model: "gpt-4o-mini",
+    max_tokens: 1000,
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a file summarizer. You will be provided a brief summary of code into human readable form.",
+      },
+      {
+        role: "user",
+        content: `Review the given code: ${sort}`,
+      },
+    ],
   });
+  return completions;
+}
 
 export function createFileReview(fileContent) {
   const completions = client.chat.completions.create({
-    model: 'gpt-4o-mini',
+    model: "gpt-4o-mini",
     max_tokens: 2500,
     messages: [
       {
@@ -25,6 +44,7 @@ export function createFileReview(fileContent) {
   });
   return completions;
 };
+
 export function createLineSpecificReview(fileContent) {
   const completions = client.chat.completions.create({
     model: "gpt-4o-mini",

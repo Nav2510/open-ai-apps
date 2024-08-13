@@ -1,0 +1,26 @@
+name: Add Summary to PR
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  add-summary:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Add Summary to PR Description
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        PR_NUMBER=$(echo "${{ github.event.pull_request.number }}")
+        PR_BODY=$(echo "${{ github.event.pull_request.body }}")
+        SUMMARY="This is summary"
+
+        UPDATED_BODY="${SUMMARY}\n\n${PR_BODY}"
+
+        # Use GitHub CLI to update the PR description
+        gh pr edit $PR_NUMBER --body "$UPDATED_BODY"

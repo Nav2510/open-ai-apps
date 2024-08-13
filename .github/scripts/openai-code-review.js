@@ -69,7 +69,6 @@ function createLineComments(file, fileContent, commit_id) {
       keys.forEach((key) => {
         reviewList = [...reviewList, ...jsonResponse[key]];
       });
-      console.log('reviewList', reviewList);
       reviewList.forEach((review) => {
         octokit.pulls.createReviewComment({
           owner: owner,
