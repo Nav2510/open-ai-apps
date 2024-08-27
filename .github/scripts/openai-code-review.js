@@ -66,6 +66,7 @@ function createLineComments(file, fileContent, commit_id) {
       const completionText = reviewRes.choices[0].message.content.trim();
       console.log("completionText", completionText);
       const jsonResponse = JSON.parse(completionText);
+      console.log(jsonResponse);
       let reviewList = [];
       const keys = Object.keys(jsonResponse);
       console.log("keys", keys);
