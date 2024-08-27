@@ -80,10 +80,7 @@ function createLineComments(file, fileContent, commit_id) {
           path: file.filename,
           line: review.line,
           commit_id: commit_id,
-          body: `
-          ${review.suggested_change}\n
-          Explantion: ${review.explantions}
-          `,
+          body: `${review.suggested_change}\nExplantion: ${review.explantions}`,
         });
       });
     } catch (error) {

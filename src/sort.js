@@ -10,5 +10,5 @@ function foo(arr) {
   }
   return arr;
 }
-const arr = [64, 34, 25, 12, 22, 11, 90];
-console.log(foo(arr)); 
+const arr1 = [64, 34, 25, 12, 22, 11, 90];
+console.log(foo(arr1));
