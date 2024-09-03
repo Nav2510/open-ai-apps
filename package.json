@@ -29,7 +29,7 @@
   "dependencies": {
     "@actions/github": "^6.0.0",
     "@octokit/rest": "^21.0.1",
-    "ai-reviewer": "^0.0.3",
+    "ai-reviewer": "^0.0.4",
     "minimatch": "^10.0.1",
     "openai": "^4.54.0"
   }
